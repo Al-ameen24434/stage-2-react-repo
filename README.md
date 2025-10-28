@@ -79,6 +79,7 @@ client/
 ### Pages
 
 **Landing.tsx**
+
 - Hero section with wavy SVG background
 - Decorative circle overlay (positioned top-right)
 - Feature grid with icon cards
@@ -86,6 +87,7 @@ client/
 - Fully responsive layout
 
 **Login.tsx** & **Signup.tsx**
+
 - Centered card layout
 - Real-time form validation with inline errors
 - Password confirmation (signup only)
@@ -94,12 +96,14 @@ client/
 - Test credentials display
 
 **Dashboard.tsx**
+
 - Protected route (requires authentication)
 - Three stat cards: Total, Open, and Resolved tickets
 - Quick action buttons
 - Real-time statistics
 
 **Tickets.tsx**
+
 - Protected route
 - Ticket list with status badges
 - Create ticket dialog
@@ -111,6 +115,7 @@ client/
 ### Shared Components
 
 **Navbar.tsx**
+
 - Sticky top navigation
 - Responsive with mobile hamburger menu
 - Conditional rendering based on auth state
@@ -118,16 +123,19 @@ client/
 - Logout button
 
 **Footer.tsx**
+
 - Three-column grid layout
 - Company info, quick links, contact
 - Responsive (stacks on mobile)
 
 **StatusBadge.tsx**
+
 - Color-coded status display
 - Uses Tailwind custom colors
 - Props: `status` (open | in_progress | closed)
 
 **ProtectedRoute.tsx**
+
 - Higher-order component
 - Redirects to login if not authenticated
 - Checks auth state via AuthContext
@@ -149,6 +157,7 @@ client/
 ### AuthContext Provider
 
 Wraps the entire application and provides:
+
 - `session` - Current user session (or null)
 - `setSession` - Update session
 - `logout` - Clear session and redirect
@@ -157,6 +166,7 @@ Wraps the entire application and provides:
 ### How It Works
 
 1. **Signup Flow**
+
    - Form validation (name, email, password, confirmation)
    - User created in localStorage (`ticketapp_users`)
    - Auto-login after registration
@@ -164,6 +174,7 @@ Wraps the entire application and provides:
    - Redirect to dashboard
 
 2. **Login Flow**
+
    - Email/password validation
    - Lookup user in localStorage
    - Create session with token
@@ -172,11 +183,13 @@ Wraps the entire application and provides:
    - Redirect to dashboard
 
 3. **Session Persistence**
+
    - On app load, AuthContext checks localStorage
    - Restores session if valid
    - User remains logged in across refreshes
 
 4. **Protected Routes**
+
    - `ProtectedRoute` component wraps authenticated pages
    - Checks `isAuthenticated` from AuthContext
    - Redirects to `/auth/login` if not authenticated
@@ -192,20 +205,21 @@ Wraps the entire application and provides:
 
 ```typescript
 interface StoredTicket {
-  id: string;                // UUID
-  title: string;             // Brief description
-  description: string;       // Detailed description
+  id: string; // UUID
+  title: string; // Brief description
+  description: string; // Detailed description
   status: "open" | "in_progress" | "closed";
   priority: "low" | "medium" | "high";
-  createdAt: string;         // ISO datetime
-  updatedAt: string;         // ISO datetime
-  userId: string;            // Owner ID
+  createdAt: string; // ISO datetime
+  updatedAt: string; // ISO datetime
+  userId: string; // Owner ID
 }
 ```
 
 ### CRUD Operations
 
 **Create Ticket**
+
 - Dialog with form (title, description, status, priority)
 - Form validation with Zod
 - Stores in localStorage
@@ -213,18 +227,21 @@ interface StoredTicket {
 - Refreshes ticket list
 
 **Read Tickets**
+
 - Filtered by current user ID
 - Loaded on component mount
 - Displayed as card list
 - Shows status badge, date, priority
 
 **Update Ticket**
+
 - Edit dialog with pre-filled form
 - Same validation as create
 - Updates `updatedAt` timestamp
 - Toast notification
 
 **Delete Ticket**
+
 - Confirmation dialog (prevents accidental deletion)
 - Removes from localStorage
 - Toast notification
@@ -233,11 +250,13 @@ interface StoredTicket {
 ### localStorage Structure
 
 **Keys:**
+
 - `ticketapp_session` - Current user session
 - `ticketapp_users` - Array of all users
 - `ticketapp_tickets` - Array of all tickets
 
 **Session Object:**
+
 ```typescript
 {
   user: { id, email, password, name },
@@ -283,6 +302,7 @@ These work across all button variants and contexts.
 On first load, the app initializes with:
 
 **Test User:**
+
 ```
 Email: test@test.com
 Password: 123456
@@ -290,6 +310,7 @@ Name: Test User
 ```
 
 **Sample Tickets (4 total):**
+
 - 2 Open tickets (high priority)
 - 1 In Progress ticket (medium priority)
 - 1 Closed ticket (low priority)
@@ -366,18 +387,18 @@ No environment variables required - everything uses localStorage.
 ✅ **Form Handling** - React Hook Form + Zod validation  
 ✅ **Routing** - Wouter (lightweight alternative to React Router)  
 ✅ **State Management** - Context API (no Redux needed)  
-✅ **Code Quality** - ESLint, Prettier, strict TypeScript  
+✅ **Code Quality** - ESLint, Prettier, strict TypeScript
 
 ## 🔄 Comparison with Vue Version
 
-| Feature | React | Vue |
-|---------|-------|-----|
-| State | Context API | Pinia |
-| Routing | Wouter | Vue Router |
-| Forms | React Hook Form | v-model |
-| Components | JSX/TSX | SFC (.vue) |
-| Styling | className prop | class attribute |
-| Reactivity | useState | ref/reactive |
+| Feature    | React           | Vue             |
+| ---------- | --------------- | --------------- |
+| State      | Context API     | Pinia           |
+| Routing    | Wouter          | Vue Router      |
+| Forms      | React Hook Form | v-model         |
+| Components | JSX/TSX         | SFC (.vue)      |
+| Styling    | className prop  | class attribute |
+| Reactivity | useState        | ref/reactive    |
 
 Both achieve identical functionality and design!
 
