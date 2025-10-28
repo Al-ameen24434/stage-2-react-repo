@@ -7,15 +7,10 @@ export default defineConfig({
   plugins: [
     react(),
     runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
+    ...(process.env.NODE_ENV !== "production" && process.env.REPL_ID
       ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer()
-          ),
-          await import("@replit/vite-plugin-dev-banner").then((m) =>
-            m.devBanner()
-          ),
+          (await import("@replit/vite-plugin-cartographer")).cartographer(),
+          (await import("@replit/vite-plugin-dev-banner")).devBanner(),
         ]
       : []),
   ],
@@ -28,14 +23,9 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
+    outDir: path.resolve(import.meta.dirname, "dist"),
     rollupOptions: {
-      input: "index.html",
-    },
-  },
-  server: {
-    fs: {
-      strict: true,
-      deny: ["**/.*"],
+      input: path.resolve(import.meta.dirname, "client", "index.html"),
     },
   },
 });

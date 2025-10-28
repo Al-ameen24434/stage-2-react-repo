@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
-import App from "./client/src/App";
+import App from "./App";
 import "./index.css";
-import { initializeTestData } from "./client/src/lib/initTestData";
+import { initializeTestData } from "./lib/initTestData";
 
 // Initialize test data on first load
 initializeTestData();
